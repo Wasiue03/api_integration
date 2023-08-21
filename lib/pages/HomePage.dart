@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:api_integration/models/Article_provider.dart';
-
 import '../components/customListTile.dart';
-import '../services/api_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,7 +22,8 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await ApiService().getArticle();
+          await articleProvider
+              .fetchArticles(); // Fetch and update the articles
         },
         child: Icon(Icons.refresh),
       ),

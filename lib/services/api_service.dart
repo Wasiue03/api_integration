@@ -3,13 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:api_integration/models/Article_model.dart';
 
 class ApiService {
-  final String apiKey =
-      'fe9af4c0f27a4daabc6ad60f5281d004'; // Replace with your actual API key
+  final String apiKey = 'fe9af4c0f27a4daabc6ad60f5281d004';
 
   Future<List<Article>> getArticle() async {
-    final String endPointUrl = "newsapi.org";
-    final String country = 'us';
-    final String category = 'technology';
+    const String endPointUrl = "newsapi.org";
+    const String country = 'us';
+    const String category = 'technology';
 
     final Map<String, String> queryParameters = {
       'country': country,
