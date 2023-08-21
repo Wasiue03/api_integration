@@ -3,9 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:api_integration/models/Article_provider.dart';
 
 import '../components/customListTile.dart';
-import '../services/api_service.dart'; // Import your ArticleProvider// Import your customListTile
+import '../services/api_service.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final articleProvider = Provider.of<ArticleProvider>(context);
