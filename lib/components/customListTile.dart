@@ -1,5 +1,5 @@
-import 'package:api_integration/models/Article_model.dart';
 import 'package:flutter/material.dart';
+import 'package:api_integration/models/Article_model.dart'; // Import your Article model
 
 Widget customListTile(Article article) {
   return Container(
@@ -48,7 +48,7 @@ Widget customListTile(Article article) {
           ),
         SizedBox(height: 8.0),
         Text(
-          article.title ?? 'No Title', // Use a default value if title is null
+          article.title ?? 'No Title',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16.0,
