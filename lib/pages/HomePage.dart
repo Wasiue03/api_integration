@@ -1,45 +1,31 @@
-import 'package:api_integration/components/customListTile.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:api_integration/models/Article_provider.dart';
+import '../components/customListTile.dart';
 
-import '../models/Article_model.dart';
-import '../services/api_service.dart';
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  ApiService client = ApiService();
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final articleProvider = Provider.of<ArticleProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("News App", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
+        title: Text('News App'),
       ),
-      body: FutureBuilder<List<Article>>(
-        future: client.getArticle(),
-        builder: (BuildContext context, AsyncSnapshot<List<Article>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text("No articles available"));
-          } else {
-            List<Article> articles =
-                snapshot.data!; // Use ! to access non-null data
-            return ListView.builder(
-                itemCount: articles.length,
-                itemBuilder: (context, index) =>
-                    customListTile(articles[index]));
-          }
+      body: ListView.builder(
+        itemCount: articleProvider.articles.length,
+        itemBuilder: (context, index) {
+          return customListTile(articleProvider.articles[index]);
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await articleProvider
+              .fetchArticles(); // Fetch and update the articles
+        },
+        child: Icon(Icons.refresh),
       ),
     );
   }
